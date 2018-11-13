@@ -129,7 +129,7 @@ class CbSdkConnection(object):
 
     def get_continuous_data(self):
         if self.is_connected and self.cbsdk_config['get_continuous']:
-            result, data = cbpy.trial_continuous(instance=self.cbsdk_config['instance'], reset=True)
+            result, data, tzero = cbpy.trial_continuous(instance=self.cbsdk_config['instance'], reset=True)
             if result == 0:
                 return data
             else:
