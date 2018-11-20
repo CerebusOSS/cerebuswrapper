@@ -138,7 +138,8 @@ class CbSdkConnection(object):
 
     def get_comments(self):
         if self.is_connected and self.cbsdk_config['get_comments']:
-            result, comments = cbpy.trial_comment(instance=self.cbsdk_config['instance'], reset=True)
+            result, comments = cbpy.trial_comment(instance=self.cbsdk_config['instance'], reset=True,
+                                                  wait_for_comment_msec=0)
             if result == 0:
                 return comments
             else:
