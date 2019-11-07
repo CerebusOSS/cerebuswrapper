@@ -129,7 +129,7 @@ class CbSdkConnection(object):
 
     def get_continuous_data(self):
         if self.is_connected and self.cbsdk_config['get_continuous']:
-            result, data, tzero = cbpy.trial_continuous(instance=self.cbsdk_config['instance'], reset=True)
+            result, data, t_0 = cbpy.trial_continuous(instance=self.cbsdk_config['instance'], reset=True)
             if result == 0:
                 return data
             else:
@@ -181,9 +181,14 @@ class CbSdkConnection(object):
         else:
             return None
 
-    def monitor_chan(self, chan_ix):
+    def monitor_chan(self, chan_ix, aud_out_ix=0):
+        """
+        :param chan_ix: The channel to monitor (1-based)
+        :param aud_out_ix: Which of the audio output channels. 0: audio1; 1: audio2
+        """
         if self.is_connected:
-            cbpy.analog_out(149, chan_ix, track_last=False, spike_only=False, instance=self.cbsdk_config['instance'])
+            res = cbpy.analog_out(277 + aud_out_ix, chan_ix, track_last=False, spike_only=False,
+                                  instance=self.cbsdk_config['instance'])
 
     def get_waveforms(self, chan_ix):
         if self.is_connected:
