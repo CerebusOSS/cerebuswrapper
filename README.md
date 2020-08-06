@@ -7,10 +7,8 @@ Requirements:
 
 [Cerelink](https://github.com/dashesy/CereLink) python module `cerebus` must be installed.
 
-Then...
-
-* Download this repository, change to this directory, then `pip install .`.
-* Alternatively, `pip install git+https://github.com/SachsLab/cerebuswrapper.git`
+* Either download and install from the wheel [on the releases page](https://github.com/SachsLab/cerebuswrapper/releases/latest),
+* or directly from source if on an internet-connected machine, `pip install git+https://github.com/SachsLab/cerebuswrapper.git`
 
 ## Usage
 
