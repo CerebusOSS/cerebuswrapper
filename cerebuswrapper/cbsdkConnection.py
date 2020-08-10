@@ -211,3 +211,11 @@ class CbSdkConnection(object):
             msg_str = 'Not connected'
             # TODO: Enable connect menu/toolbar
         return msg_str
+
+    def get_recording_state(self):
+        if self.is_connected:
+            info = cbpy.file_config(command='info')
+            # info is a tuple (instance #?, dict info)
+            return info[1]['Recording']
+        else:
+            return False
