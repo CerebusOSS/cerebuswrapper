@@ -219,3 +219,26 @@ class CbSdkConnection(object):
             return info[1]['Recording']
         else:
             return False
+
+    def set_recording_state(self, on_off, file_info):
+        import time
+        if self.is_connected and 'filename' in file_info.keys():
+            # Need to make sure to open the file storage dialog in Central before calling any start/stop recording commands,
+            # if it is not opened, the commands will simply open it and will be ignored. The cbpy.file_config
+            # function is supposed to do it for the start command but it doesn't set the filename properly.
+            cbpy.file_config(command='open')  # open file storage
+            # It doesn't work without a small delay between the open and start commands.
+            time.sleep(0.1)
+
+            if on_off:
+                out = cbpy.file_config(command='start',
+                                 filename=file_info['filename'],
+                                 comment=file_info['comment'] if 'comment' in file_info.keys() else '')
+            else:
+                out = cbpy.file_config(command='stop',
+                             filename=file_info['filename'],
+                             comment=file_info['comment'] if 'comment' in file_info.keys() else '')
+                cbpy.file_config(command='close')
+            return out
+        else:
+            return -1
