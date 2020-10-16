@@ -228,7 +228,8 @@ class CbSdkConnection(object):
             # function is supposed to do it for the start command but it doesn't set the filename properly.
             cbpy.file_config(command='open')  # open file storage
             # It doesn't work without a small delay between the open and start commands.
-            time.sleep(0.1)
+            # time.sleep(0.1)
+            time.sleep(0.25)  # had issues with only 0.1
 
             file_info['command'] = 'start' if on_off else 'stop'
 
