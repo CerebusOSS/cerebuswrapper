@@ -12,9 +12,9 @@ setup(
     version='0.1.0',
     description='A thin convenience wrapper around Cerelink cerebus.cbpy',
     long_description=long_description,
-    url='https://github.com/SachsLab/cerebuswrapper',
+    url='https://github.com/charlesincharge/cerebuswrapper',
     author='Chadwick Boulay',
     author_email='chadwick.boulay@gmail.com',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
-    install_requires=['cerebus']
+    install_requires=['cerebus', 'loguru']
 )
