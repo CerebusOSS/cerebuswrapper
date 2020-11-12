@@ -1,8 +1,6 @@
 from cerebus import cbpy
-from ._shared import singleton
 
 
-@singleton
 class CbSdkConnection(object):
     def __init__(self, instance=0, con_params=None, simulate_ok=False):
         """
