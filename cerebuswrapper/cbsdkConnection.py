@@ -33,7 +33,13 @@ class CbSdkConnection(object):
         }  # See self._do_config for description.
         self.spike_cache = {}
 
-    def __del__(self):
+    def __enter__(self):
+        """Called on entrance to `with` statement."""
+        self.connect()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """Cleanup cbSdkConnection. Called on exit of `with` statement."""
         self.disconnect()
 
     def connect(self):
