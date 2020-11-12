@@ -1,4 +1,5 @@
 from cerebus import cbpy
+from loguru import logger
 
 
 class CbSdkConnection(object):
@@ -40,14 +41,14 @@ class CbSdkConnection(object):
         try:
             result, connect_info = cbpy.open(instance=self.instance, connection='default', parameter=self.con_params)
             self.is_connected = (result == 0 or result == 1)
-            print("cbpy.open returned result: {}; connect_info: {}".format(result, connect_info))
+            logger.info("cbpy.open returned result: {}; connect_info: {}".format(result, connect_info))
             self.cbsdk_config = {
                 'buffer_parameter': {'absolute': True}
             }  # TODO: Does this need to be updated?
         except RuntimeError as e:
             result = int(str(e).split(",")[0])
             self.is_connected = False
-            print(e)
+            logger.error(e)
         return result
 
     def disconnect(self):
@@ -65,7 +66,7 @@ class CbSdkConnection(object):
             try:
                 indict = dict(indict)
             except TypeError:
-                print("Value passed to cbsdk_config must be a dictionary")
+                logger.error("Value passed to cbsdk_config must be a dictionary")
 
         # Update the provided parameters with missing parameters.
         if 'buffer_parameter' in indict:
@@ -122,7 +123,7 @@ class CbSdkConnection(object):
                 if result == 0:
                     return data
                 else:
-                    print('failed to get trial event data. Error (%d)' % result)
+                    logger.error('failed to get trial event data. Error (%d)' % result)
         return None
 
     def get_continuous_data(self):
@@ -131,7 +132,7 @@ class CbSdkConnection(object):
             if result == 0:
                 return data
             else:
-                print('failed to get trial continuous data. Error (%d)' % result)
+                logger.error('failed to get trial continuous data. Error (%d)' % result)
         return None
 
     def get_comments(self):
@@ -141,7 +142,7 @@ class CbSdkConnection(object):
             if result == 0:
                 return comments
             else:
-                print('Failed to get trial comments. Error (%d)' % result)
+                logger.error('Failed to get trial comments. Error (%d)' % result)
         return None
 
     def set_comments(self, comment_list, rgba_tuple=(0, 0, 0, 64)):
@@ -156,7 +157,7 @@ class CbSdkConnection(object):
             if result == 0:
                 return group_info
             else:
-                print('failed to get trial group config. Error (%d)' % result)
+                logger.error('failed to get trial group config. Error (%d)' % result)
         return None
 
     def get_channel_info(self, chan_id):
@@ -165,7 +166,7 @@ class CbSdkConnection(object):
             if result == 0:
                 return chan_info
             else:
-                print('Failed to get channel info. Error (%d)' % result)
+                logger.error('Failed to get channel info. Error (%d)' % result)
         return None
 
     def set_channel_info(self, chan_id, new_info):
