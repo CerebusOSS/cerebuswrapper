@@ -14,9 +14,8 @@ Requirements:
 
 ```Python
 from cerebuswrapper import CbSdkConnection
-cbsdk_conn = CbSdkConnection()
-cbsdk_conn.connect()
-cbsdk_conn.cbsdk_config = {'reset': True, 'get_continuous': True}
-result, data = cbsdk_conn.get_continuous_data()
-cbsdk_conn.disconnect()  # Will also disconnect when being deleted.
+with CbSdkConnection() as cbsdk_conn:
+    cbsdk_conn.cbsdk_config = {'reset': True, 'get_continuous': True}
+    result, data = cbsdk_conn.get_continuous_data()
+    # Will automatically disconnect at end of context.
 ```
