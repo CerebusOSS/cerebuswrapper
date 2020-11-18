@@ -23,7 +23,7 @@ class CbSdkConnection(object):
         self.is_simulating = simulate_ok
         self.sig_gens = {}
         self._cbsdk_config = {
-            'instance': 0,
+            'instance': instance,
             'buffer_parameter': {
                 'absolute': True
             },
