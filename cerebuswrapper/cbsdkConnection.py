@@ -132,11 +132,14 @@ class CbSdkConnection(object):
                     logger.error('failed to get trial event data. Error (%d)' % result)
         return None
 
-    def get_continuous_data(self):
+    def get_continuous_data(self, return_timestamp=False):
         if self.is_connected and self.cbsdk_config['get_continuous']:
             result, data, t_0 = cbpy.trial_continuous(instance=self.cbsdk_config['instance'], reset=True)
             if result == 0:
-                return data
+                if return_timestamp:
+                    return data, t_0
+                else:
+                    return data
             else:
                 logger.error('failed to get trial continuous data. Error (%d)' % result)
         return None

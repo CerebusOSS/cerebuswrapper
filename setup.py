@@ -9,7 +9,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='cerebuswrapper',
-    version='0.1.0',
+    version='0.1.1',
     description='A thin convenience wrapper around Cerelink cerebus.cbpy',
     long_description=long_description,
     url='https://github.com/charlesincharge/cerebuswrapper',
