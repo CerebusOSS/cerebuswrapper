@@ -181,13 +181,13 @@ class CbSdkConnection(object):
         else:
             return None
 
-    def monitor_chan(self, chan_ix, aud_out_ix=0):
+    def monitor_chan(self, chan_ix, aud_out_ix=0, spike_only=False):
         """
         :param chan_ix: The channel to monitor (1-based)
         :param aud_out_ix: Which of the audio output channels. 0: audio1; 1: audio2
         """
         if self.is_connected:
-            res = cbpy.analog_out(277 + aud_out_ix, chan_ix, track_last=False, spike_only=False,
+            res = cbpy.analog_out(277 + aud_out_ix, chan_ix, track_last=False, spike_only=spike_only,
                                   instance=self.cbsdk_config['instance'])
 
     def get_waveforms(self, chan_ix):
